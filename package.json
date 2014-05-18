@@ -1,0 +1,25 @@
+{
+  "name": "home",
+  "version": "0.0.0",
+  "description": "Home",
+  "main": "index.js",
+  "author": {
+    "name": "Jesse the Game",
+    "email": "jesse@jessethegame.net"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "*",
+    "mongoose": "*"
+  },
+  "devDependencies": {
+    "coffee-script": "*",
+    "mocha": "*",
+    "should": "*",
+    "uglify-js": "*"
+  },
+  "scripts": {
+    "prepublish": "coffee -o ./lib ./src",
+    "test": "make test"
+  }
+}

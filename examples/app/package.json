@@ -1,0 +1,5 @@
+{
+  "name": "app",
+  "description": "An example app for testing purposes",
+  "main": "index.js"
+}
