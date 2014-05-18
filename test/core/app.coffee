@@ -42,8 +42,9 @@ describe 'core', ->
   describe 'example', ->
     app = require '../../examples/app'
 
-    app.should.not.have.property 'example'
-    app.should.not.have.property 'examples'
+    it 'should not load extensions before init', ->
+      app.should.not.have.property 'example'
+      app.should.not.have.property 'examples'
 
     home.init()
 

@@ -83,8 +83,6 @@ module.exports = (module, pkg={}, setup=(->)) ->
       # In that case, the uid becomes the module name
       pojo[plural][moduleName module] = factory.call pojo, module, args...
 
-      console.log 'product', moduleName module
-
     # The factory method exposed
     pojo[singular] = product
     product.options = options
