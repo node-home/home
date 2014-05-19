@@ -14,9 +14,11 @@ minifest = (obj) ->
  * its extensions.
 ###
 manifest = (obj) ->
-  result = _.cloneDeep obj.options
+  options = obj?.options ? obj ? {}
 
-  if obj.extensions
+  result = _.cloneDeep options
+
+  if obj?.extensions?
     result.extensions = {}
     for key, extension of obj.extensions
       result.extensions[key] = minifest extension

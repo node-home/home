@@ -43,16 +43,21 @@ module.exports = (module, pkg={}, setup=(->)) ->
   pojo.init = ->
     try
       module.require './extensions'
-      console.log "Loaded extensions"
-    catch
-      console.log "No extensions"
+    catch error
+      console.log "LOAD EXTENSIONS ERROR", pojo.package.name, error
+
+    # try
+    #   console.log "Loaded extensions"
+    # catch error
+    #   console.log "No extensions", error
+    setup? pojo
 
     for fac, factory of pojo.extensions
+      console.log "INIT", fac
       factory.init?()
       for obj, object of pojo[factory.plural]
-        object.init?()
-
-    setup? pojo
+        console.log "INIT", fac, obj
+        object?.init?()
 
   ###
   TODO this could be removed to ensure an app is entirely
@@ -66,10 +71,10 @@ module.exports = (module, pkg={}, setup=(->)) ->
   to the app. The objects created when calling the extension (its singular)
   are stored in a property (its plural).
   ###
-  pojo.extension = (singular, options, factory=endpoint) ->
+  pojo.extension = (singular, options, factory) ->
     options ?= {}
     plural  = options.plural ?= "#{singular}s"
-    url     = options.url    ?= "#{pojo.package.url}/#{plural}"
+    url     = options.url    ?= "#{pojo.package.name}/#{plural}"
 
     # The container that holds the options of an app's extension
     pojo.extensions[singular] = options

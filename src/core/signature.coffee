@@ -9,10 +9,12 @@ parse = (type, arg) ->
     when 'number', Number
       float = parseFloat "#{arg}" ? null
       if isNaN(float) then null else float
+    when 'function'
+      if typeof arg is 'function' then arg else null
     else
       return type.parse arg if type.parse?
       return type arg if typeof type is 'function'
-      throw new Error "Unknown type"
+      throw new Error "Unknown type #{arg}"
 
 clean = (params, args={}) ->
   params ?= {}

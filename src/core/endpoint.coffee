@@ -15,17 +15,10 @@ _    = require 'lodash'
 module.exports = (uid, options, callback) ->
   _.defaults options ?= {},
     method: 'POST'
-    url:    "#{@url}/#{uid}"
+    url:    "/#{@url}/#{uid}"
 
   func = signaturify options.params, callback ? ->
     throw new Error "Not Implemented"
 
   func.options = options
-
-  console.log 'endpoint', options
-
-  # TODO should this be a separate step or should it emit immediately?
-  func.init = =>
-    @bus.emit 'endpoint', options.method, options.url, func
-
   func

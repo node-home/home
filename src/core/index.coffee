@@ -1,4 +1,3 @@
-console.log "INDEX", module.path
 app            = require './app'
 endpoint       = require './endpoint'
 signature      = require './signature'

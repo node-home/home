@@ -1,6 +1,6 @@
-app = require './core/app'
+core = require './core'
 
-module.exports = home = app module,
+module.exports = home = core.app module,
   name: 'Home'
   url: ''  #'//home.local' || settings.HOST
   info: """
@@ -11,6 +11,14 @@ module.exports = home = app module,
 
     All extensions and plugins are discoverable by hateoas.
   """
+  , (app) ->
+    app.endpoint = (args...) ->
+      endpoint = core.endpoint args...
+      app.bus.emit 'endpoint', endpoint.options.method, endpoint.options.url, endpoint
+      app.bus.emit 'manifest', endpoint.options.url, -> core.manifest app
+      endpoint
+
+    core.manifest app.url, app
 
 home.extension 'app',
   name: "App"
@@ -20,4 +28,4 @@ home.extension 'app',
 
     There is no inheritance, just composition.
   """
-, app
+, core.app
