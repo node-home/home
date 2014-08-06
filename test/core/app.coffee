@@ -12,7 +12,7 @@ describe 'core', ->
       test.should.have.property 'extensions'
 
     describe '#extension()', ->
-      extension = test.extension 'test'
+      extension = test.extension 'test', {}, -> 'a factory'
 
       it 'should return a function', ->
         (typeof extension).should.eql 'function'
@@ -33,6 +33,14 @@ describe 'core', ->
 
       it 'should attach objects to container', ->
         test.tests.foo.should.eql foo
+
+      describe '#endpoint()', ->
+        it 'should expose an endpoint function', ->
+          (typeof extension.endpoint).should.eql 'function'
+
+        it 'should create endpoints with module and extension name', ->
+          endpoint = extension.endpoint test, 'foo'
+          endpoint.url.should.be 'test/test/test/foo'
 
     describe '#init()', ->
       it 'should have an init method', ->

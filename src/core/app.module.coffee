@@ -76,6 +76,9 @@ module.exports = (module, pkg={}, setup=(->)) ->
     plural  = options.plural ?= "#{singular}s"
     url     = options.url    ?= "#{pojo.package.name}/#{plural}"
 
+    factory ?= ->
+      throw new Error "#{moduleName module}.#{singular} not implemented"
+
     # The container that holds the options of an app's extension
     pojo.extensions[singular] = options
 
